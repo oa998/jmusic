@@ -8,4 +8,6 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-static/*.mp3
+static/*r.mp3
+static/*l.mp3
+static/*2.mp3
