@@ -11,6 +11,35 @@
 	const lyrics = writable(false);
 	const mp3 = writable('');
 	let audioRef: HTMLAudioElement;
+	const titles = {
+		uranus: 'Cosmic Game',
+		doughnut: 'Sweet Salvation',
+		disco: 'Wild Card Winner',
+		arya: 'Calico Dreams',
+		nook: 'Curly Tail',
+		pik: 'Sleepy Assistant'
+	};
+
+	const continuous = writable(true);
+	const shuffle = writable(false);
+	$: console.log($lyrics);
+
+	const songList = writable(['uranus', 'doughnut', 'disco', 'arya', 'nook', 'pik']);
+
+	$: if ($shuffle) {
+		$songList = $songList
+			.map((value) => ({ value, sort: Math.random() }))
+			.sort((a, b) => a.sort - b.sort)
+			.map(({ value }) => value);
+	} else {
+		$songList = ['uranus', 'doughnut', 'disco', 'arya', 'nook', 'pik'];
+	}
+
+	function endedCallback() {
+		if (!$continuous) return;
+		const index = ($songList.indexOf($clicked) + 1) % $songList.length;
+		setTimeout(() => ($clicked = $songList[index]), 800);
+	}
 
 	$: if ($clicked) {
 		if ($clicked == 'uranus') $mp3 = 'Cosmic_Game_done.mp3';
@@ -20,51 +49,55 @@
 		if ($clicked == 'nook') $mp3 = 'nook.mp3';
 		if ($clicked == 'pik') $mp3 = 'pik.mp3';
 		if (audioRef) audioRef.play();
+		audioRef.addEventListener('ended', endedCallback);
 	}
 </script>
 
 <div class={`square-grid ${$lyrics ? 'p-2 pb-[90vh]' : 'p-2'}`}>
-	<button on:click={() => ($clicked = 'doughnut')}>
-		<div class:play={$clicked == 'doughnut'} class={`doughnut w-full h-full aspect-square`} />
-		<span>Sweet Sensation</span>
-	</button>
-
-	<button on:click={() => ($clicked = 'uranus')}>
-		<div class:play={$clicked == 'uranus'} class={`uranus w-full h-full aspect-square`} />
-		<span>Cosmic Game</span>
-	</button>
-
-	<button on:click={() => ($clicked = 'disco')}>
-		<div class:play={$clicked == 'disco'} class={`disco w-full h-full aspect-square`} />
-		<span>Wild Card Winner</span>
-	</button>
-
-	<button on:click={() => ($clicked = 'arya')}>
-		<div class:play={$clicked == 'arya'} class={`arya w-full h-full aspect-square`} />
-		<span>Calico Dreams</span>
-	</button>
-
-	<button on:click={() => ($clicked = 'nook')}>
-		<div class:play={$clicked == 'nook'} class={`nook w-full h-full aspect-square`} />
-		<span>Curly Tail</span>
-	</button>
-
-	<button on:click={() => ($clicked = 'pik')}>
-		<div class:play={$clicked == 'pik'} class={`pik w-full h-full aspect-square`} />
-		<span>Sleepy Assistant</span>
-	</button>
+	{#each $songList as song (song)}
+		<button on:click={() => ($clicked = song)}>
+			{#if ['arya', 'pik', 'nook'].includes(song)}
+				<img class:play={$clicked == song} src={`${song}_clean.png`} alt={song} />
+			{:else}
+				<div class:play={$clicked == song} class={`${song} w-full h-full aspect-square`} />
+			{/if}
+			<span class="fun-font">{titles[song]}</span>
+		</button>
+	{/each}
 </div>
-<div class="fixed bottom-0 left-0 w-full flex justify-center flex-col bg-black py-2">
+<div class="fixed bottom-0 left-0 w-full flex justify-center flex-col bg-black py-2 gap-2">
+	<div class="flex justify-around w-full">
+		<div>
+			<input type="checkbox" hidden id="continuous-play" bind:checked={$continuous} />
+			<label
+				for="continuous-play"
+				class={`text-sm px-2 rounded-full ${$continuous ? 'text-black bg-violet-200 ' : 'text-gray-500'}`}
+				>Continuous Play</label
+			>
+		</div>
+		<div>
+			<input type="checkbox" hidden id="shuffle" bind:checked={$shuffle} />
+			<label
+				for="shuffle"
+				class={`text-sm px-2 rounded-full ${$shuffle ? 'text-black bg-violet-200 ' : 'text-gray-500'}`}
+				>Shuffle</label
+			>
+		</div>
+		<div>
+			<input type="checkbox" hidden id="lyrics" bind:checked={$lyrics} />
+			<label
+				for="lyrics"
+				class={`text-sm px-2 rounded-full ${$lyrics ? 'text-black bg-violet-200 ' : 'text-gray-500'}`}
+				>Show Lyrics</label
+			>
+		</div>
+	</div>
 	{#key $clicked}
 		<div class="flex justify-around">
 			<audio bind:this={audioRef} controls>
 				<source src={`${base}/${$mp3}`} type="audio/mpeg" />
 				Your browser does not support the audio element.
 			</audio>
-			<button
-				class="text-white rounded-full border border-gray-500 px-2"
-				on:click={() => ($lyrics = !$lyrics)}>Lyrics</button
-			>
 		</div>
 	{/key}
 	<details open={$lyrics} class="text-white">
@@ -93,25 +126,25 @@
 
 <style lang="postcss">
 	.square-grid {
-		/* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-		@apply grid gap-4 h-fit max-w-3xl m-auto p-3 justify-center; */
 		@apply flex flex-col gap-1;
 	}
 
-	.square-grid button div {
+	.square-grid button div,
+	.square-grid button img {
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position-x: center;
 		@apply aspect-square h-[12vw] w-[12vw] max-w-[100px] max-h-[100px];
 	}
 	.square-grid button {
+		transition: all 1s linear;
 		@apply flex flex-row items-center border-4 border-black p-1 bg-blue-900;
 	}
 	.square-grid button:has(> .play) {
 		@apply bg-blue-300;
 	}
 
-	.square-grid button div.play ~ span {
+	.square-grid button .play ~ span {
 		@apply text-black font-semibold;
 	}
 
@@ -122,7 +155,6 @@
 	.play {
 		@apply border border-black;
 	}
-
 	.disco {
 		background-image: url('/singleframe-disco.gif');
 	}
@@ -145,6 +177,14 @@
 	.uranus {
 		background-image: url('/singleframe-uranus.gif');
 	}
+	.uranus:active,
+	.uranus:focus,
+	.uranus.play {
+		background-size: percentage 50% 100%;
+		background-image: url('/uranus.gif');
+		@apply brightness-110;
+	}
+
 	.arya {
 		background-image: url('/arya_clean.png');
 	}
