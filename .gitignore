@@ -9,4 +9,3 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 static/*l.mp3
-static/*2.mp3
