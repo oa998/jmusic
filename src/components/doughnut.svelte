@@ -1,5 +1,6 @@
-<pre class="text-center text-3xl underline w-full">Sweet Salvation</pre>
-<pre class="whitespace-pre-wrap py-10 text-[8pt] px-2">
+<div class="flex flex-col items-center">
+	<pre class="text-center text-3xl underline w-full">Sweet Salvation</pre>
+	<pre class="whitespace-pre-wrap py-10 text-[8pt] px-2">
 In a sterile room
 I'm stuck like glue
 Counting the days
@@ -27,3 +28,4 @@ I'm feeling just fine
 I'm gonna bounce back
 One doughnut at a time
   </pre>
+</div>

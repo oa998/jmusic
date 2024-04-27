@@ -1,5 +1,6 @@
-<pre class="text-center text-3xl underline">Cosmic Game</pre>
-<pre class="whitespace-pre-wrap py-10 text-[8pt] px-2">
+<div class="flex flex-col items-center">
+	<pre class="text-center text-3xl underline">Cosmic Game</pre>
+	<pre class="whitespace-pre-wrap py-10 text-[8pt] px-2">
 On a cloudless night
 I'm on a quest
 With my telescope
@@ -27,3 +28,4 @@ I won't back down
 I'll keep on searchin'
 'til you're finally found
   </pre>
+</div>

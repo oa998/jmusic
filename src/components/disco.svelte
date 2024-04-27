@@ -1,5 +1,6 @@
-<pre class="text-center text-3xl underline">Wild Card Winner</pre>
-<pre class="whitespace-pre-wrap py-10 text-[8pt] px-2">
+<div class="flex flex-col items-center">
+	<pre class="text-center text-3xl underline">Wild Card Winner</pre>
+	<pre class="whitespace-pre-wrap py-10 text-[8pt] px-2 w-fit">
 I'm a wild card winner
 Feelin' so fly
 A groovy Uno player
@@ -27,3 +28,4 @@ I take my stand
 Hustling on the dance floor
 Winning card in my hand    
   </pre>
+</div>
