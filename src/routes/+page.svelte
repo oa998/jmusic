@@ -57,7 +57,9 @@
 	{#each $songList as song (song)}
 		<button on:click={() => ($clicked = song)}>
 			{#if ['arya', 'pik', 'nook'].includes(song)}
-				<img class:play={$clicked == song} src={`${song}_clean.png`} alt={song} />
+				<div class:play={$clicked == song}>
+					<img src={`${song}_clean.png`} alt={song} />
+				</div>
 			{:else}
 				<div class:play={$clicked == song} class={`${song} w-full h-full aspect-square`} />
 			{/if}
@@ -155,6 +157,21 @@
 	.play {
 		@apply border border-black;
 	}
+	@keyframes rock {
+		0% {
+			transform: rotate(-10deg);
+		}
+		50% {
+			transform: rotate(10deg);
+		}
+		100% {
+			transform: rotate(-10deg);
+		}
+	}
+	.play > img {
+		animation: rock 2s infinite;
+	}
+
 	.disco {
 		background-image: url('/singleframe-disco.gif');
 	}
