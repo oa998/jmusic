@@ -23,7 +23,7 @@
 	}
 </script>
 
-<div class={`square-grid ${$lyrics ? 'p-2 pb-[80vh]' : 'p-2'}`}>
+<div class={`square-grid ${$lyrics ? 'p-2 pb-[90vh]' : 'p-2'}`}>
 	<button on:click={() => ($clicked = 'doughnut')}>
 		<div class:play={$clicked == 'doughnut'} class={`doughnut w-full h-full aspect-square`} />
 		<span>Sweet Sensation</span>
