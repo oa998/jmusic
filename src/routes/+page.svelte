@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import Icon from '@iconify/svelte';
 	import { writable } from 'svelte/store';
 	import Arya from '../components/arya.svelte';
 	import Disco from '../components/disco.svelte';
@@ -7,6 +8,7 @@
 	import Nook from '../components/nook.svelte';
 	import Pik from '../components/pik.svelte';
 	import Uranus from '../components/uranus.svelte';
+
 	const clicked = writable('');
 	const lyrics = writable(false);
 	const mp3 = writable('');
@@ -53,19 +55,30 @@
 	}
 </script>
 
-<div class={`square-grid ${$lyrics ? 'p-2 pb-[90vh]' : 'p-2'}`}>
-	{#each $songList as song (song)}
-		<button on:click={() => ($clicked = song)}>
-			{#if ['arya', 'pik', 'nook'].includes(song)}
-				<div class:play={$clicked == song}>
-					<img src={`${song}_clean.png`} alt={song} />
-				</div>
-			{:else}
-				<div class:play={$clicked == song} class={`${song} w-full h-full aspect-square`} />
-			{/if}
-			<span class="fun-font">{titles[song]}</span>
-		</button>
-	{/each}
+<div class="grid justify-items-center w-full">
+	<div class={`square-grid ${$lyrics ? 'p-2 pb-[110vh]' : 'p-2'} max-w-lg w-full`}>
+		<div class="flex flex-row items-center text-white py-3">
+			<div class="title-font text-4xl sm:text-5xl w-full text-center">Jenson's Jams</div>
+
+			<a
+				class="flex flex-row py-1 px-2 border-gray-300 bg-white text-blue-800 rounded-full items-center gap-2"
+				href="https://m.facebook.com/groups/257139284095779/?ref=share&mibextid=NSMWBT"
+				><Icon icon="logos:facebook" class="text-xl sm:text-4xl" /> Updates
+			</a>
+		</div>
+		{#each $songList as song (song)}
+			<button on:click={() => ($clicked = song)}>
+				{#if ['arya', 'pik', 'nook'].includes(song)}
+					<div class:play={$clicked == song}>
+						<img src={`${song}_clean.png`} alt={song} />
+					</div>
+				{:else}
+					<div class:play={$clicked == song} class={`${song} w-full h-full aspect-square`} />
+				{/if}
+				<span class="fun-font">{titles[song]}</span>
+			</button>
+		{/each}
+	</div>
 </div>
 <div class="fixed bottom-0 left-0 w-full flex justify-center flex-col bg-black py-2 gap-2">
 	<div class="flex justify-around w-full">
@@ -136,7 +149,7 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position-x: center;
-		@apply aspect-square h-[12vw] w-[12vw] max-w-[100px] max-h-[100px];
+		@apply aspect-square h-[12vw] w-[12vw] max-w-[65px] max-h-[65px];
 	}
 	.square-grid button {
 		transition: all 1s linear;
