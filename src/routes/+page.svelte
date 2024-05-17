@@ -7,6 +7,7 @@
 	import Doughnut from '../components/doughnut.svelte';
 	import Nook from '../components/nook.svelte';
 	import Pik from '../components/pik.svelte';
+	import Rhythm from '../components/rhythm.svelte';
 	import Uranus from '../components/uranus.svelte';
 
 	const clicked = writable('');
@@ -19,14 +20,15 @@
 		disco: 'Wild Card Winner',
 		arya: 'Calico Dreams',
 		nook: 'Curly Tail',
-		pik: 'Sleepy Assistant'
+		pik: 'Sleepy Assistant',
+		rhythm: 'Risky Rhythm'
 	};
 
 	const continuous = writable(true);
 	const shuffle = writable(false);
 	$: console.log($lyrics);
 
-	const songList = writable(['uranus', 'doughnut', 'disco', 'arya', 'nook', 'pik']);
+	const songList = writable([]);
 
 	$: if ($shuffle) {
 		$songList = $songList
@@ -34,7 +36,7 @@
 			.sort((a, b) => a.sort - b.sort)
 			.map(({ value }) => value);
 	} else {
-		$songList = ['uranus', 'doughnut', 'disco', 'arya', 'nook', 'pik'];
+		$songList = ['uranus', 'doughnut', 'disco', 'rhythm', 'arya', 'nook', 'pik'];
 	}
 
 	function endedCallback() {
@@ -50,6 +52,7 @@
 		if ($clicked == 'arya') $mp3 = 'arya.mp3';
 		if ($clicked == 'nook') $mp3 = 'nook.mp3';
 		if ($clicked == 'pik') $mp3 = 'pik.mp3';
+		if ($clicked == 'rhythm') $mp3 = 'Risky_Rhythm.mp3';
 		if (audioRef) audioRef.play();
 		audioRef.addEventListener('ended', endedCallback);
 	}
@@ -136,6 +139,9 @@
 		{#if $clicked == 'nook'}
 			<Nook />
 		{/if}
+		{#if $clicked == 'rhythm'}
+			<Rhythm />
+		{/if}
 	</details>
 </div>
 
@@ -212,6 +218,17 @@
 	.uranus.play {
 		background-size: percentage 50% 100%;
 		background-image: url('/uranus.gif');
+		@apply brightness-110;
+	}
+
+	.rhythm {
+		background-image: url('/bean.png');
+	}
+	.rhythm:active,
+	.rhythm:focus,
+	.rhythm.play {
+		background-size: percentage 50% 100%;
+		background-image: url('/bean.gif');
 		@apply brightness-110;
 	}
 
