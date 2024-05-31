@@ -81,6 +81,18 @@
 				<span class="fun-font">{titles[song]}</span>
 			</button>
 		{/each}
+		<button
+			on:click={() => {
+				window.open(
+					'https://storage.googleapis.com/photos_and_stuff/att.Xtp4PQhV97j7I_kKsStdMu5J5NbtlWZQGqxJ7mANwZY.MP4',
+					'_self'
+				);
+			}}
+			class="video"
+		>
+			<div class:play={$clicked == 'disco'} class={`${'uno'} w-full h-full aspect-square`} />
+			<span class="fun-font">Jenson's Video: <u>Wild Card Winner</u></span>
+		</button>
 	</div>
 </div>
 <div class="fixed bottom-0 left-0 w-full flex justify-center flex-col bg-black py-2 gap-2">
@@ -161,6 +173,9 @@
 		transition: all 1s linear;
 		@apply flex flex-row items-center border-4 border-black p-1 bg-blue-900;
 	}
+	.square-grid button.video {
+		@apply border-4 border-yellow-700 p-1 bg-[#f60201] rounded-full overflow-hidden;
+	}
 	.square-grid button:has(> .play) {
 		@apply bg-blue-300;
 	}
@@ -198,6 +213,15 @@
 	.disco:focus,
 	.disco.play {
 		background-image: url('/disco.gif');
+	}
+	.uno {
+		background-image: url('/uno.jpg');
+		border-radius: 100%;
+	}
+	.uno:active,
+	.uno:focus,
+	.uno.play {
+		background-image: url('/uno.jpg');
 	}
 
 	.doughnut {
