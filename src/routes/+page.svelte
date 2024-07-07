@@ -72,7 +72,7 @@
 			</a>
 		</div>
 		{#each $songList as song (song)}
-			<button on:click={() => ($clicked = song)}>
+			<button on:click={() => ($clicked = song)} class="relative">
 				{#if ['arya', 'pik', 'nook'].includes(song)}
 					<div class:play={$clicked == song}>
 						<img src={`${song}_clean.png`} alt={song} />
@@ -80,7 +80,14 @@
 				{:else}
 					<div class:play={$clicked == song} class={`${song} w-full h-full aspect-square`} />
 				{/if}
-				<span class="fun-font">{titles[song]}</span>
+				<span class="fun-font">{titles[song]} </span>
+				{#if titles[song] == "Pirate's Tale"}
+					<p
+						class="bg-black rounded text-white font-sans text-xs italic py-2 px-3 right-3 text-nowrap absolute"
+					>
+						NEW ☠
+					</p>
+				{/if}
 			</button>
 		{/each}
 		<button
