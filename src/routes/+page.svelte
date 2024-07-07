@@ -7,6 +7,7 @@
 	import Doughnut from '../components/doughnut.svelte';
 	import Nook from '../components/nook.svelte';
 	import Pik from '../components/pik.svelte';
+	import Pirate from '../components/pirate.svelte';
 	import Rhythm from '../components/rhythm.svelte';
 	import Uranus from '../components/uranus.svelte';
 
@@ -162,6 +163,9 @@
 		{/if}
 		{#if $clicked == 'rhythm'}
 			<Rhythm />
+		{/if}
+		{#if $clicked == 'pirate'}
+			<Pirate />
 		{/if}
 	</details>
 </div>
