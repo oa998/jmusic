@@ -21,7 +21,8 @@
 		arya: 'Calico Dreams',
 		nook: 'Curly Tail',
 		pik: 'Sleepy Assistant',
-		rhythm: 'Risky Rhythm'
+		rhythm: 'Risky Rhythm',
+		pirate: "Pirate's Tale"
 	};
 
 	const continuous = writable(true);
@@ -36,7 +37,7 @@
 			.sort((a, b) => a.sort - b.sort)
 			.map(({ value }) => value);
 	} else {
-		$songList = ['uranus', 'doughnut', 'disco', 'rhythm', 'arya', 'nook', 'pik'];
+		$songList = ['uranus', 'doughnut', 'disco', 'rhythm', 'pirate', 'arya', 'nook', 'pik'];
 	}
 
 	function endedCallback() {
@@ -53,6 +54,7 @@
 		if ($clicked == 'nook') $mp3 = 'nook.mp3';
 		if ($clicked == 'pik') $mp3 = 'pik.mp3';
 		if ($clicked == 'rhythm') $mp3 = 'Risky_Rhythm.mp3';
+		if ($clicked == 'pirate') $mp3 = 'pirate.mp3';
 		if (audioRef) audioRef.play();
 		audioRef.addEventListener('ended', endedCallback);
 	}
@@ -256,6 +258,17 @@
 		@apply brightness-110;
 	}
 
+	.pirate {
+		background-image: url('/pirate.png');
+	}
+	.pirate:active,
+	.pirate:focus,
+	.pirate.play {
+		background-size: percentage 50% 100%;
+		background-image: url('/pirate.gif');
+		@apply brightness-110;
+	}
+
 	.arya {
 		background-image: url('/arya_clean.png');
 	}
@@ -265,6 +278,7 @@
 	.pik {
 		background-image: url('/pik_clean.png');
 	}
+
 	details > summary {
 		list-style: none;
 	}
