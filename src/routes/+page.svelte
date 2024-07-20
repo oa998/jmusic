@@ -59,38 +59,40 @@
 		if (audioRef) audioRef.play();
 		audioRef.addEventListener('ended', endedCallback);
 	}
+	let screenWidth: number;
 </script>
 
-<div class="grid justify-items-center w-full">
-	<div class={`square-grid ${$lyrics ? 'p-2 pb-[110vh]' : 'p-2'} max-w-lg w-full`}>
-		<div class="flex flex-row items-center text-white py-3">
-			<div class="title-font text-4xl sm:text-5xl w-full text-center">Jenson's Jams</div>
-
+<div class="grid justify-items-center w-full" bind:clientWidth={screenWidth}>
+	<div
+		class="flex flex-row items-center w-full bg-slate-800 gap-2 p-2 sm:justify-between justify-end"
+	>
+		<div
+			class:hidden={screenWidth < 640}
+			class="title-font text-4xl text-center text-white justify-self-start"
+		>
+			Jenson's Jams
+		</div>
+		<div class="flex flex-row gap-2">
 			<a
-				class="flex flex-row py-1 px-2 border-gray-300 bg-white text-blue-800 rounded-full items-center gap-2"
+				class="flex flex-row py-1 px-2 border border-slate-500 bg-transparent text-white rounded-full items-center gap-2 w-min h-9 sm:h-12 max-h-9 sm:max-h-12"
 				href="https://m.facebook.com/groups/257139284095779/?ref=share&mibextid=NSMWBT"
 				><Icon icon="logos:facebook" class="text-xl sm:text-4xl" /> Updates
 			</a>
+			<a
+				class="flex flex-row py-1 px-2 border border-slate-500 bg-transparent text-white rounded-full items-center gap-2 w-fit h-9 sm:h-12 max-h-9 sm:max-h-12"
+				href="https://runsignup.com/Race/109004/Donate/PJSM08UTtVbvojZO"
+				><img src="/sonic.png" alt="sonic" class="aspect-square inline h-full" />
+				<div class="">5K Run for Charity</div>
+			</a>
 		</div>
-		{#each $songList as song (song)}
-			<button on:click={() => ($clicked = song)} class="relative">
-				{#if ['arya', 'pik', 'nook'].includes(song)}
-					<div class:play={$clicked == song}>
-						<img src={`${song}_clean.png`} alt={song} />
-					</div>
-				{:else}
-					<div class:play={$clicked == song} class={`${song} w-full h-full aspect-square`} />
-				{/if}
-				<span class="fun-font">{titles[song]} </span>
-				{#if titles[song] == "Pirate's Tale"}
-					<p
-						class="bg-black rounded text-white font-sans text-xs italic py-2 px-3 right-3 text-nowrap absolute"
-					>
-						NEW ☠
-					</p>
-				{/if}
-			</button>
-		{/each}
+	</div>
+	<div class={`square-grid ${$lyrics ? 'p-2 pb-[110vh]' : 'p-2'} max-w-lg w-full`}>
+		<div
+			class:hidden={screenWidth >= 640}
+			class="grid items-center text-white py-3 justify-items-center"
+		>
+			<div class="title-font text-5xl w-full text-center">Jenson's Jams</div>
+		</div>
 		<button
 			on:click={() => {
 				window.open(
@@ -103,6 +105,19 @@
 			<div class:play={$clicked == 'disco'} class={`${'uno'} w-full h-full aspect-square`} />
 			<span class="fun-font">Jenson's Video: <u>Wild Card Winner</u></span>
 		</button>
+		{#each $songList as song (song)}
+			<button on:click={() => ($clicked = song)} class="relative">
+				{#if ['arya', 'pik', 'nook'].includes(song)}
+					<div class:play={$clicked == song}>
+						<img src={`${song}_clean.png`} alt={song} />
+					</div>
+				{:else}
+					<div class:play={$clicked == song} class={`${song} w-full h-full aspect-square`} />
+				{/if}
+				<span class="fun-font">{titles[song]} </span>
+			</button>
+		{/each}
+		<div class="w-1 py-20" />
 	</div>
 </div>
 <div class="fixed bottom-0 left-0 w-full flex justify-center flex-col bg-black py-2 gap-2">
