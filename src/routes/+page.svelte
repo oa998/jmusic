@@ -217,6 +217,7 @@
 		text-shadow:
 			black 0 0 2px,
 			black 0 0 3px;
+		color: white;
 		@apply border-4 border-green-500 p-1 bg-[#156903] rounded-full overflow-hidden;
 	}
 	.square-grid button:has(> .play) {
@@ -228,7 +229,7 @@
 	}
 
 	.square-grid button span {
-		@apply w-full text-center text-gray-400;
+		@apply w-full text-center text-gray-300;
 	}
 
 	.play {
