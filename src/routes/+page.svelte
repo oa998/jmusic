@@ -99,7 +99,7 @@
 			}}
 			class="video green"
 		>
-			<div class:play={$clicked == 'disco'} class={`${'tada'} w-full h-full aspect-square`} />
+			<div class={`${'tada'} w-full h-full aspect-square`} />
 			<span class="fun-font">Jenson's Video: <u>1 YEAR!</u></span>
 		</button>
 		<button
@@ -108,7 +108,7 @@
 			}}
 			class="video red"
 		>
-			<div class:play={$clicked == 'disco'} class={`${'uno'} w-full h-full aspect-square`} />
+			<div class={`${'uno'} w-full h-full aspect-square`} />
 			<span class="fun-font">Jenson's Video: <u>Wild Card Winner</u></span>
 		</button>
 		{#each $songList as song (song)}
