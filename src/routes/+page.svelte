@@ -59,7 +59,7 @@
 		if (audioRef) audioRef.play();
 		audioRef.addEventListener('ended', endedCallback);
 	}
-	let screenWidth: number;
+	let screenWidth: number = 300;
 </script>
 
 <div class="grid justify-items-center w-full" bind:clientWidth={screenWidth}>
@@ -78,12 +78,12 @@
 				href="https://m.facebook.com/groups/257139284095779/?ref=share&mibextid=NSMWBT"
 				><Icon icon="logos:facebook" class="text-xl sm:text-4xl" /> Updates
 			</a>
-			<a
+			<!-- <a
 				class="flex flex-row py-1 px-2 border border-slate-500 bg-transparent text-white rounded-full items-center gap-2 w-fit h-9 sm:h-12 max-h-9 sm:max-h-12"
 				href="https://runsignup.com/Race/109004/Donate/PJSM08UTtVbvojZO"
 				><img src="/sonic.png" alt="sonic" class="aspect-square inline h-full" />
 				<div class="">5K Run for Charity</div>
-			</a>
+			</a> -->
 		</div>
 	</div>
 	<div class={`square-grid ${$lyrics ? 'p-2 pb-[110vh]' : 'p-2'} max-w-lg w-full`}>
@@ -95,12 +95,18 @@
 		</div>
 		<button
 			on:click={() => {
-				window.open(
-					'https://storage.googleapis.com/photos_and_stuff/att.Xtp4PQhV97j7I_kKsStdMu5J5NbtlWZQGqxJ7mANwZY.MP4',
-					'_self'
-				);
+				window.open('https://storage.googleapis.com/photos_and_stuff/fighter-1year.mp4', '_self');
 			}}
-			class="video"
+			class="video green"
+		>
+			<div class:play={$clicked == 'disco'} class={`${'tada'} w-full h-full aspect-square`} />
+			<span class="fun-font">Jenson's Video: <u>1 YEAR!</u></span>
+		</button>
+		<button
+			on:click={() => {
+				window.open('https://storage.googleapis.com/photos_and_stuff/wildcardwinner.MP4', '_self');
+			}}
+			class="video red"
 		>
 			<div class:play={$clicked == 'disco'} class={`${'uno'} w-full h-full aspect-square`} />
 			<span class="fun-font">Jenson's Video: <u>Wild Card Winner</u></span>
@@ -201,8 +207,17 @@
 		transition: all 1s linear;
 		@apply flex flex-row items-center border-4 border-black p-1 bg-blue-900;
 	}
-	.square-grid button.video {
+	.square-grid button.video.red {
+		text-shadow:
+			black 0 0 2px,
+			black 0 0 3px;
 		@apply border-4 border-yellow-700 p-1 bg-[#f60201] rounded-full overflow-hidden;
+	}
+	.square-grid button.video.green {
+		text-shadow:
+			black 0 0 2px,
+			black 0 0 3px;
+		@apply border-4 border-green-500 p-1 bg-[#156903] rounded-full overflow-hidden;
 	}
 	.square-grid button:has(> .play) {
 		@apply bg-blue-300;
@@ -250,6 +265,16 @@
 	.uno:focus,
 	.uno.play {
 		background-image: url('/uno.jpg');
+	}
+
+	.tada {
+		background-image: url('/tada.png');
+		border-radius: 100%;
+	}
+	.tada:active,
+	.tada:focus,
+	.tada.play {
+		background-image: url('/tada.png');
 	}
 
 	.doughnut {
